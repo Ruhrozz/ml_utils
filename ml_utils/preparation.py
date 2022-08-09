@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def cat_ohe(data: pd.DataFrame, columns: List[str], prefix="ohe_", drop=False) -> pd.DataFrame:
-    ""One hot encoding for categorical features"""
+    """One hot encoding for categorical features"""
     ohe_data = pd.get_dummies(data[columns], prefix=prefix, prefix_sep="")
 
     data = pd.concat([data, ohe_data], axis=1)
