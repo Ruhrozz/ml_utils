@@ -5,8 +5,8 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
 
-# one hot encoding for categorical features
-def cat_ohe(data: pd.DataFrame, columns: List[str], prefix="ohe_", drop=False):
+def cat_ohe(data: pd.DataFrame, columns: List[str], prefix="ohe_", drop=False) -> pd.DataFrame:
+    ""One hot encoding for categorical features"""
     ohe_data = pd.get_dummies(data[columns], prefix=prefix, prefix_sep="")
 
     data = pd.concat([data, ohe_data], axis=1)
@@ -17,8 +17,8 @@ def cat_ohe(data: pd.DataFrame, columns: List[str], prefix="ohe_", drop=False):
     return data
 
 
-# label encoding for categorical features
-def cat_le(data: pd.DataFrame, columns: List[str], prefix="le_", drop=False):
+def cat_le(data: pd.DataFrame, columns: List[str], prefix="le_", drop=False) -> pd.DataFrame:
+    """Label encoding for categorical features"""
     le = LabelEncoder()
 
     for column in columns:
@@ -30,8 +30,8 @@ def cat_le(data: pd.DataFrame, columns: List[str], prefix="le_", drop=False):
     return data
 
 
-# frequency encoding for categorical features
-def cat_freq(data: pd.DataFrame, columns: List[str], prefix="freq_", drop=False):
+def cat_freq(data: pd.DataFrame, columns: List[str], prefix="freq_", drop=False) -> pd.DataFrame:
+    """Frequency encoding for categorical features"""
     for column in columns:
         fe = data.groupby(column).size() / len(data)
         data[prefix + column] = data[column].map(fe)
@@ -42,8 +42,8 @@ def cat_freq(data: pd.DataFrame, columns: List[str], prefix="freq_", drop=False)
     return data
 
 
-# label encoding for categorical ordinal features
-def cat_ord(data: pd.DataFrame, columns: List[str], ordinals: List[Dict[str, int]],  prefix="ord_", drop=False):
+def cat_ord(data: pd.DataFrame, columns: List[str], ordinals: List[Dict[str, int]],  prefix="ord_", drop=False) -> pd.DataFrame:
+    """Label encoding for categorical ordinal features"""
     assert len(columns) == len(ordinals)
 
     for column, ordinal in zip(columns, ordinals):
